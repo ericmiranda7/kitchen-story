@@ -1,0 +1,55 @@
+<div class="row">
+    <div class="col">
+        <h1 class="text-center">Welcome to Kitchen Story, {{user.username}}</h1>
+    </div>
+    <div class="col-auto align-self-center">
+        <a [hidden]="!user.admin" class="btn btn-primary me-1" data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop">Change password</a>
+        <a routerLink="/checkout" class="btn btn-primary"><i class="bi bi-cart"></i> {{cart.items}}</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <form>
+            <input (ngModelChange)="updateFilter($event)" [(ngModel)]="searchText" class="w-100" type="text"
+                name="search" placeholder="Search for products..." />
+        </form>
+    </div>
+</div>
+<div class="row mt-3">
+    <app-product-list (newCartItemEvent)="addToCart($event)" (deleteProduct)="deleteProduct($event)"
+        [admin]="user.admin" [products]="filteredProducts">
+    </app-product-list>
+</div>
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Change password</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row g-3 align-items-center">
+                    <form [formGroup]="changePassGroup" class="border p-4 rounded border-primary">
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">New password</label>
+                            <input formControlName="username" type="password" class="form-control"
+                                id="exampleInputEmail1" aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Confirm password</label>
+                            <input formControlName="password" type="password" class="form-control"
+                                id="exampleInputPassword1">
+                        </div>
+                        <button (click)="handleSubmit()" type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="/" class="btn btn-primary">Go back
+                    home</a>
+            </div>
+        </div>
+    </div>
+</div>
